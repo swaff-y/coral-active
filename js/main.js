@@ -13,7 +13,7 @@ const recursive = (array) => {
   const testArrayIn = Array.isArray(array);
   // check if we dealing with an array or object
   if(testArrayIn === true){
-    str = str + "<ul>"; //Print out first <UL>
+    str = str + "<ol>"; //Print out first <UL>
     //Go through all elements in the array
     for( let i = 0; i < array.length; i++ ){
         //Test if the element is an Object or not
@@ -22,18 +22,18 @@ const recursive = (array) => {
           const arr = Object.values(array[i]);
           //always choosing the first "Name" - Kind of going back a step
           //print out the list item
-          str = str + `<li>${arr[0]}</li>`;
+          str = str + `<li>) ${ arr[0]}</li>`;
         }else{
           // if not an object print the element
           //print out the "node" part of the object
-          str = str + `<li>${array[i]}</li>`;
+          str = str + `<li>) ${ array[i]}</li>`;
         }
         //After printing out -> recursivly call the function again to
         //check array items again for each element
         recursive(array[i]);
     }
     //the UL gets added recursivly after the depth first search is complete
-    str = str + "</ul>";
+    str = str + "</ol>";
   }else{
     //if we are not dealing with an array but rather an object
     //create an array from the values and loop through to
