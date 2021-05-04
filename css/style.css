@@ -9,19 +9,19 @@ li:before {
   counter-increment: item
 } */
 
-ol {
+.ol {
     counter-reset: item;
 }
 
-ol > li {
+.ol > .li {
     counter-increment: item;
 }
 
-ol ol > li {
+.ol .ol > .li {
   display: block;
 }
 
-ol ol > li:before {
+.ol .ol > .li:before {
     content: counters(item, ".") ". ";
     margin-left: -20px;
 }
