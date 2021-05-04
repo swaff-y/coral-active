@@ -16,7 +16,6 @@ const recursive = (array,type = false) => {
   let orderedListItemFront = "";
   type === true ? orderedListFront = "<ol class='ol'>" : orderedListFront = "<ul>"
   type === true ? orderedListBack = "</ol>" : orderedListBack = "</ul>"
-  // const orderedListItemFront = "<li>"
   type === true ? orderedListItemFront = "<li class='li'>)" : orderedListItemFront = "<li>"
 
 
@@ -78,7 +77,6 @@ const recursive = (array,type = false) => {
   }else{
     return strD
   }
-  // return str
 }
 
 
