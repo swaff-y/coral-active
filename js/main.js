@@ -1,4 +1,5 @@
 console.log("Please check the git hub link for the code");
+console.log("https://github.com/swaff-y/coral-active/blob/main/js/main.js");
 
 const array = ["one","two",["three",["four"],"five"],"six"];
 const arrayTwo = ["one", {name: "two", nodes: [{name: "2.1", nodes: ["2.1a"]}, "two point two"]}, "three"];
