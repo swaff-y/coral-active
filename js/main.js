@@ -1,4 +1,4 @@
-console.log("Please check the git hub link for the code");
+console.log("Please check the gitHub link for the code");
 console.log("https://github.com/swaff-y/coral-active/blob/main/js/main.js");
 
 const array = ["one","two",["three",["four"],"five"],"six"];
