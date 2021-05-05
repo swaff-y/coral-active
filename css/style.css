@@ -1,13 +1,4 @@
-/* ol {
-  counter-reset: item
-}
-li{
-  display: block
-}
-li:before {
-  content: counters(item, ".") " ";
-  counter-increment: item
-} */
+
 
 .ol {
     counter-reset: item;
@@ -23,18 +14,5 @@ li:before {
 
 .ol .ol > .li:before {
     content: counters(item, ".") ". ";
-    margin-left: -20px;
+    /* margin-left: -20px; */
 }
-
-/* ol > li {
-    counter-increment: item;
-}
-
-ol ol > li {
-    display: block;
-}
-
-ol ol > li:before {
-    content: counters(item, ".") ". ";
-    margin-left: -20px;
-} */

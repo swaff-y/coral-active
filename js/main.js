@@ -11,14 +11,15 @@ const isObject = (obj) => {
 }
 
 const recursive = (array,type = false) => {
-  let orderedListFront = "";
-  let orderedListBack = "";
-  let orderedListItemFront = "";
-  type === true ? orderedListFront = "<ol class='ol'>" : orderedListFront = "<ul>"
-  type === true ? orderedListBack = "</ol>" : orderedListBack = "</ul>"
-  // const orderedListItemFront = "<li>"
-  type === true ? orderedListItemFront = "<li class='li'>)" : orderedListItemFront = "<li>"
+  let orderedListFront = "<ul>";
+  let orderedListBack = "</ul>";
+  let orderedListItemFront = "<li>";
 
+  if(type === true){
+    orderedListFront = "<ol class='ol'>";
+    orderedListBack = "</ol>"
+    orderedListItemFront = "<li class='li'>)"
+  } //end if
 
   const testArrayIn = Array.isArray(array);
   // check if we dealing with an array or object
@@ -26,9 +27,9 @@ const recursive = (array,type = false) => {
     //Print out first <UL>
     type === true
     ?
-    str = str + orderedListFront
+      str = str + orderedListFront
     :
-    strD = strD + orderedListFront;
+      strD = strD + orderedListFront;
     //Go through all elements in the array
     for( let i = 0; i < array.length; i++ ){
         //Test if the element is an Object or not
@@ -39,135 +40,94 @@ const recursive = (array,type = false) => {
           //print out the list item
           type === true
           ?
-          str = str + `${orderedListItemFront} ${ arr[0]}</li>`
+            str = str + `${orderedListItemFront} ${ arr[0]}</li>`
           :
-          strD = strD + `${orderedListItemFront} ${ arr[0]}</li>`;
+            strD = strD + `${orderedListItemFront} ${ arr[0]}</li>`;
         }else{
           // if not an object print the element
           //print out the "node" part of the object
           type === true
           ?
-          str = str + `${orderedListItemFront} ${ array[i]}</li>`
+            str = str + `${orderedListItemFront} ${ array[i]}</li>`
           :
-          strD = strD + `${orderedListItemFront} ${ array[i]}</li>`;
-        }
+            strD = strD + `${orderedListItemFront} ${ array[i]}</li>`;
+        } // end else
         //After printing out -> recursivly call the function again to
         //check array items again for each element
         recursive(array[i],type);
-    }
+    } // end for
     //the UL gets added recursivly after the depth first search is complete
     type === true
     ?
-    str = str + orderedListBack
+      str = str + orderedListBack
     :
-    strD = strD + orderedListBack;
+      strD = strD + orderedListBack;
   }else{
     //if we are not dealing with an array but rather an object
     //create an array from the values and loop through to
     //recursivly call the fuction again to test for array's
     const arr = Object.values(array);
     for( let i = 0; i < arr.length; i++ ){
-      if(isObject(arr[i]) === true){
-        recursive(arr[i],type);
-      }
-    }
-  }
+      if(isObject(arr[i]) === true) recursive(arr[i],type);
+    } // end for
+  } // end else
 
+  //return the HTML string
   if(type === true){
     return str
+  } // end if
+  return strD
+}
+
+//------------------ A try at an iterative version ----------------------
+
+const cond = (item, index, last) => {
+  if(index === 0){
+    item = "<ul><li>" + item + "</li>";
+  }else if(index === last){
+    item = "<li>" + item + "</li></ul>";
   }else{
-    return strD
+    item = "<li>" + item + "<li>";
   }
-  // return str
+  return item;
 }
 
 
-// const recursive = (array) => {
-//   const test = Array.isArray(array);
-//   if(test === true){
-//     let count = array.length
-//     // console.log("<ul>");
-//     str = str + "<ul>";
-//     for( let i = 0; i < count; i++ ){
-//       recursive(array[i]);
-//     }
-//     // console.log("</ul>");
-//     str = str + "</ul>";
-//   }else{
-//     str = str + `<li>${isObject(array)}</li>`;
-//   }
-//   return str
-// }
+const outCond = (item, index, last) => {
+  if(Array.isArray(item) === false){
+    item = cond(item, index, last);
+  }else{
+    // item = outCond(item,index, last);
+    item = item;
+  }
+  return item;
+}
 
-// const iterate = (array,str) => {
-//   // str = str + "<ul>";
-//   for( let i = 0; i < array.length; i++ ){
-//     if(isObject(array[i]) === true){
-//       const objArray = Object.values(array[i])
-//       iterate(objArray,str);
-//     }else{
-//       str = str + `<li>${array[i]}</li>`;
-//     }
-//   }
-//   // str = str + "</ul>";
-//   return str;
-// }
-//
-// const iterate2 = (array,arrayReturn) => {
-//
-//   for( let i = 0; i < array.length; i++ ){
-//     if(isObject(array[i]) === true){
-//       check = false;
-//       const objArray = Object.values(array[i])
-//       iterate2(objArray,arrayReturn);
-//     }else{
-//       arrayReturn.push("<ul>")
-//       arrayReturn.push(`<li>${array[i]}</li>`);
-//     }
-//   }
-//   arrayReturn.push("</ul>")
-//   return arrayReturn;
-// }
-//
+const last = array.length -1;
 
-//
-// let string = "";
-// let arr = [];
-// let check = true;
-// console.log(iterate(arrayTwo,string));
-// console.log(iterate2(arrayTwo,arr,check).join(""));
+const change = array.map((item,index)=>{
 
+  item = outCond(item, index, last);
+  return item;
+});
 
-// const recursive = (array) => {
-//   const test = Array.isArray(array);
-//   if(test === true){
-//     let count = array.length
-//     // console.log("<ul>");
-//     str = str + "<ul>";
-//     for( let i = 0; i < count; i++ ){
-//        // console.log("run: ", array[i]);
-//        recursive(array[i]);
-//     }
-//     // console.log("</ul>");
-//     str = str + "</ul>";
-//   }else{
-//     str = str + `<li>${array}</li>`;
-//   }
-//   return str
-// }
+console.log(change);
+
+// const itArr = [];
+// const iterative = (array) => {
+//   const innerArray = array;
+//   let i = 0;
+//   while( innerArray.length > 0 ){
+//     if(Array.isArray(array[i]) === false){
 //
-// const iterate = (array,arrayReturn) => {
-//   for( let i = 0; i < array.length; i++ ){
-//     if(isObject(array[i]) === true){
-//       const objArray = Object.values(array[i])
-//       iterate(objArray,arrayReturn);
-//     }else{
-//       arrayReturn.push(`${array[i]}`)
 //     }
-//   }
-//   return arrayReturn;
-// }
 //
-// const isObject = (obj) => {
-//   return obj === Object(obj);
-// }
+//     i++;
+//     innerArray.shift(); // remove from array
+//   } // while
+//
+//   return itArr;
+// };
+
+// console.log(iterative(array));
+// console.log(itArrs);
