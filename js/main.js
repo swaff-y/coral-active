@@ -83,13 +83,13 @@ const recursive = (array,type = false) => {
 
 const cond = (item, index, last) => {
   if(index === 0 && index === last){
-    item = "<ul class='ol'><li class='ol'>" + item + "</li></ul>";
+    item = "<ol class='ol'><li class='li'>" + item + "</li></ol>";
   }else if(index === 0){
-    item = "<ul class='ol'><li class='ol'>" + item + "</li>";
+    item = "<ol class='ol'><li class='li'>" + item + "</li>";
   }else if(index === last){
-    item = "<li class='ol'>" + item + "</li></ul>";
+    item = "<li class='li'>" + item + "</li></ol>";
   }else{
-    item = "<li class='ol'>" + item + "<li>";
+    item = "<li class='li'>" + item + "<li>";
   }
   return item;
 }
