@@ -79,15 +79,17 @@ const recursive = (array,type = false) => {
   return strD
 }
 
-//------------------ A try at an iterative version ----------------------
+//------------------ A try another version ----------------------
 
 const cond = (item, index, last) => {
-  if(index === 0){
-    item = "<ul><li>" + item + "</li>";
+  if(index === 0 && index === last){
+    item = "<ul class='ol'><li class='ol'>" + item + "</li></ul>";
+  }else if(index === 0){
+    item = "<ul class='ol'><li class='ol'>" + item + "</li>";
   }else if(index === last){
-    item = "<li>" + item + "</li></ul>";
+    item = "<li class='ol'>" + item + "</li></ul>";
   }else{
-    item = "<li>" + item + "<li>";
+    item = "<li class='ol'>" + item + "<li>";
   }
   return item;
 }
@@ -97,21 +99,48 @@ const outCond = (item, index, last) => {
   if(Array.isArray(item) === false){
     item = cond(item, index, last);
   }else{
-    // item = outCond(item,index, last);
-    item = item;
+    item = mapped(item);
   }
   return item;
 }
 
-const last = array.length -1;
-
-const change = array.map((item,index)=>{
-
-  item = outCond(item, index, last);
+const objCheck = (item, index, last) => {
+  if(isObject(item) === true){
+    const itemArray = Object.values(item);
+    // item = outCond(itemArray[1], index, last);
+    item = [];
+    const ins = outCond(itemArray[0], index, last);
+    const ins2 = mapped(itemArray[1]);
+    item.push(ins);
+    item.push(ins2);
+  }else{
+    item = outCond(item, index, last);
+  }
   return item;
-});
+}
 
-console.log(change);
+const mapped = (array) => {
+  const change = array.map((item,index)=>{
+    const last = array.length -1;
+    item = objCheck(item,index, last);
+    return item;
+  });
+  return change;
+}
+
+const flatDeep = (arr, d = 1) => {
+   return d > 0 ? arr.reduce((acc, val) => acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val), [])
+                : arr.slice();
+};
+
+const write = (array) => {
+  const ret = flatDeep(mapped(array),Infinity).join("");
+  return ret;
+}
+
+
+
+console.log(write(arrayTwo));
 
 // const itArr = [];
 // const iterative = (array) => {
