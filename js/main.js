@@ -141,22 +141,3 @@ const write = (array) => {
 
 
 console.log(write(arrayTwo));
-
-// const itArr = [];
-// const iterative = (array) => {
-//   const innerArray = array;
-//   let i = 0;
-//   while( innerArray.length > 0 ){
-//     if(Array.isArray(array[i]) === false){
-//
-//     }
-//
-//     i++;
-//     innerArray.shift(); // remove from array
-//   } // while
-//
-//   return itArr;
-// };
-
-// console.log(iterative(array));
-// console.log(itArrs);
